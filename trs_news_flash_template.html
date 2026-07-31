@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+TRS NEWS FLASH TEMPLATE v1 -- single-hero-image quick-hit, distinct from the
+4-slide News Pipeline carousel. The story/analysis/TRS-angle lives entirely in
+the platform caption; this slide carries only a photo, a headline, and a hook.
+
+DELIBERATELY NOT a carousel: no rail progress indicator, no slide counter --
+those are carousel affordances and would misrepresent a single-image post.
+
+DISTINCT FROM NEWS PIPELINE BY DESIGN:
+- Headline (FL_TTL) is plain white, no inline **highlight** markup -- that
+  treatment is reserved for the carousel.
+- Hook (FL_HOOK) is the signature move: the ENTIRE line in solid volt-green,
+  bold weight (not the carousel's light/300 body treatment), short and
+  punchy. This is what makes a Flash post recognizable before reading a word.
+
+No-photo fallback: dark diagonal gradient + faint "FLASH" ghost watermark,
+same family convention as the News Pipeline template's "NEWS" ghost.
+
+RENDER NOTE: same HCTI gotchas as every other TRS template -- ms_delay >= 2000
+for any slide with a hotlinked photo (700ms can silently drop a slow image
+with no error), and a User-Agent header is required or HCTI 403s silently.
+
+Doctrine for whoever wires the prompt: keep HOOK short (~60-70 chars soft
+target) -- it's rendered entirely in one accent color at a large size, so it
+reads as a punch line, not a paragraph. Learned the hard way on News Pipeline
+that soft-target character counts need to account for the actual font size
+and clamp, not be guessed -- verify any prompt-side length target against a
+real HCTI render before calling it final.
+-->
+<head>
+<meta charset="UTF-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+*{box-sizing:border-box;margin:0;padding:0}
+body{margin:0;padding:0;background:#0a0a0a}
+
+#slide-render{
+  width:1080px;
+  height:1080px;
+  position:relative;
+  overflow:hidden;
+  background:#0a0a0a;
+  font-family:'Inter',sans-serif;
+}
+
+.grain{position:absolute;inset:0;z-index:50;pointer-events:none;opacity:0.5;mix-blend-mode:overlay}
+
+/* ============ SHARED BRAND CHROME (same family as every other TRS template) ============ */
+.chr-tl{position:absolute;top:34px;left:44px;z-index:20;font-family:'Bebas Neue',sans-serif;font-size:27px;letter-spacing:7px;color:#AAFF00;line-height:1}
+.chr-tr{position:absolute;top:39px;right:44px;z-index:20;font-size:17px;letter-spacing:4px;color:rgba(170,255,0,0.55);text-transform:uppercase;font-weight:600;font-family:'Inter',sans-serif}
+.chr-bc{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);z-index:20;font-size:16px;letter-spacing:8px;color:rgba(170,255,0,0.35);text-transform:uppercase;font-weight:600;font-family:'Inter',sans-serif}
+.ch-label{position:absolute;bottom:32px;left:44px;z-index:20;font-size:16px;letter-spacing:4px;color:rgba(170,255,0,0.65);text-transform:uppercase;font-weight:700;font-family:'Inter',sans-serif}
+
+.bg-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%;z-index:1}
+.bg-dark{position:absolute;inset:0;z-index:1;background:linear-gradient(160deg,#101010 0%,#0a0a0a 60%)}
+.ds-ghost{position:absolute;z-index:3;font-family:'Bebas Neue',sans-serif;font-size:340px;line-height:1;color:#AAFF00;opacity:0.045;right:0;bottom:-20px;letter-spacing:-10px;pointer-events:none;padding:0 16px 16px 0;white-space:nowrap}
+
+.vbar{width:110px;height:12px;background:#AAFF00;margin:0 0 26px;transform:skewX(-16deg)}
+
+/* Text-shadow halo -- content-agnostic contrast backstop over a photo backdrop */
+.fl-sec,.fl-ttl,.fl-hook{text-shadow:0 2px 14px rgba(0,0,0,0.55),0 1px 3px rgba(0,0,0,0.9)}
+
+/* ============ THE SLIDE: hero photo, headline, all-volt hook ============ */
+.scrim-flash{position:absolute;inset:0;z-index:2;background:linear-gradient(180deg, rgba(10,10,10,0.04) 0%, rgba(10,10,10,0.08) 44%, rgba(10,10,10,0.55) 68%, rgba(10,10,10,0.97) 90%)}
+.fl-inner{position:relative;z-index:5;flex:1;display:flex;flex-direction:column;justify-content:flex-end;padding:0 56px 108px}
+.fl-sec{font-size:24px;letter-spacing:8px;color:#AAFF00;text-transform:uppercase;margin-bottom:16px;font-weight:700;font-family:'Inter',sans-serif}
+.fl-ttl{font-family:'Bebas Neue',sans-serif;font-size:92px;line-height:0.94;color:#fff;letter-spacing:1px;margin-bottom:22px;text-transform:uppercase;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.fl-hook{font-size:52px;line-height:1.15;color:#AAFF00;font-weight:800;font-family:'Inter',sans-serif;max-width:920px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+</style>
+</head>
+<body>
+<div id="slide-render">
+
+<svg class="grain" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+<filter id="gf"><feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves="4" stitchTiles="stitch"/>
+<feColorMatrix type="saturate" values="0"/><feBlend in="SourceGraphic" mode="overlay"/></filter>
+<rect width="100%" height="100%" filter="url(#gf)" opacity="0.38"/>
+</svg>
+
+<div class="slide" id="s1" style="display:flex;flex-direction:column;position:absolute;inset:0">
+{{FL_BG_HTML}}
+<div class="chr-tl">THIRD RAIL SPORTS</div>
+<div class="chr-tr">THE FLASH &middot; {{DATE_LABEL}}</div>
+<div class="fl-inner">
+  <div class="vbar"></div>
+  <div class="fl-sec">News Flash</div>
+  <div class="fl-ttl">{{HEADLINE}}</div>
+  <div class="fl-hook">{{HOOK}}</div>
+</div>
+<div class="ch-label">FLASH</div>
+<div class="chr-bc">SPORT. DECODED.</div>
+</div>
+
+</div>
+</body>
+</html>

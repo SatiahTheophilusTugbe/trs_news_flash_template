@@ -83,6 +83,10 @@ body{margin:0;padding:0;background:#0a0a0a}
 .fl-sec{font-size:24px;letter-spacing:8px;color:#AAFF00;text-transform:uppercase;margin-bottom:16px;font-weight:700;font-family:'Inter',sans-serif}
 .fl-ttl{font-family:'Bebas Neue',sans-serif;font-size:92px;line-height:0.94;color:#fff;letter-spacing:1px;margin-bottom:22px;text-transform:uppercase;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .fl-hook{font-size:52px;line-height:1.15;color:#AAFF00;font-weight:800;font-family:'Inter',sans-serif;max-width:920px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+
+/* ============ NO-PHOTO CREST FALLBACK (tier between hero photo and plain ghost-text) ============ */
+.crest-field{position:absolute;z-index:2;right:44px;bottom:44px;width:520px;height:624px;pointer-events:none}
+.crest-field img{width:100%;height:100%;object-fit:contain;filter:grayscale(1) brightness(1.8) sepia(1) hue-rotate(50deg) saturate(6);opacity:0.16}
 </style>
 </head>
 <body>
